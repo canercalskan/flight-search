@@ -4,69 +4,231 @@ import { faPlaneDeparture, faPlaneArrival, faArrowRightArrowLeft } from '@fortaw
 import { faCalendar, faCalendarDays } from '@fortawesome/free-regular-svg-icons';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
-import { useState } from 'react';
-
-const months = ['Jan' , 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+import { months } from '../../constants/constants';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 const SearchField = () => {
     const [isOneWay, setIsOneWay] = useState(false);
+    const [airports, setAirports] = useState(null);
 
     const [origin, setOrigin] = useState(null);
+    const [originText, setOriginText] = useState('');
     const [originError, setOriginError] = useState(null);
+    const [originSearchResults, setOriginSearchResults] = useState([]);
 
     const [destination, setDestination] = useState(null);
+    const [destinationText, setDestinationText] = useState('');
     const [destinationError, setDestinationError] = useState(null);
+    const [destinationSearchResults, setDestinationSearchResults] = useState([]);
 
     const [showDeparturePicker, setShowDeparturePicker] = useState(false);
-    const [departure, setDeparture] = useState(new Date());
+    const [departure, setDeparture] = useState();
     const [properDeparture, setProperDeparture] = useState(null);
     const [departureError, setDepartureError] = useState(null);
 
     const [showReturnDatePicker, setShowReturnDatePicker] = useState(false);
-    const [returnDate, setReturnDate] = useState(new Date());
+    const [returnDate, setReturnDate] = useState(null);
     const [properReturnDate, setProperReturnDate] = useState(null);
     const [returnDateError, setReturnDateError] = useState(null);
+
+    useEffect(() => {
+        const fetchAirports = async () => {
+            const airportListResponse = await axios.get("https://64fda51f596493f7af7e6785.mockapi.io/api/airports");
+            setAirports(airportListResponse.data);
+        };
+
+        fetchAirports()
+    }, [])
+
+    const handleOneWaySelection = () => {
+        setReturnDateError(null);
+        setReturnDate(null);
+        setProperReturnDate(null);
+        setShowReturnDatePicker(false);
+        setIsOneWay(!isOneWay);
+    }
 
     const swapLocations = () => {
         let tempOrigin = origin;
         setOrigin(destination);
         setDestination(tempOrigin);
+
+        let tempOriginText = originText;
+        setOriginText(destinationText);
+        setDestinationText(tempOriginText);
     }
 
-    const handleDepartureSelect = (selectedDate) => {
+    const handleOriginChange = async (input) => {
+        setOriginSearchResults([]);
+        try {
+            setOriginText(input);
+            if(originText.length >= 2 && airports) { // enable search logic only if the input length is greater than or equal to 2.
+                airports.forEach(airport => {
+                    if(airport.name.toLowerCase().includes(originText.toLowerCase()) || airport.code.toLowerCase().includes(originText.toLowerCase()) || airport.city.toLowerCase().includes(originText.toLowerCase()) || airport.country.toLowerCase().includes(originText.toLowerCase())) {
+                        let newSearchResults = originSearchResults;
+                        if(!newSearchResults.find(item => item.id === airport.id)) {
+                            if(destination) {
+                                destination.id !== airport.id && newSearchResults.push(airport);
+                            }
+                            else {
+                                newSearchResults.push(airport);
+                            }
+                            setOriginSearchResults(newSearchResults);
+                        }
+                    }
+                })
+            }
+        }
+        
+        catch(error) {
+            setOriginError('Something went wrong..');
+        }
+    }
+
+    const handleDestinationChange = async (input) => {
+        setDestinationSearchResults([]);
+        try {
+            setDestinationText(input);
+            if(destinationText.length >= 2 && airports) { // enable search logic only if the input length is greater than or equal to 2.
+                airports.forEach(airport => {
+                    if(airport.name.toLowerCase().includes(destinationText.toLowerCase()) || airport.code.toLowerCase().includes(destinationText.toLowerCase()) || airport.city.toLowerCase().includes(destinationText.toLowerCase()) || airport.country.toLowerCase().includes(destinationText.toLowerCase())) {
+                        let newSearchResults = destinationSearchResults;
+                        if(!newSearchResults.find(item => item.id === airport.id)) {
+                            if(origin) {
+                                if(origin.id !== airport.id) {
+                                    newSearchResults.push(airport);
+                                }
+                            }
+                            else {
+                                newSearchResults.push(airport);
+                            }
+                            setDestinationSearchResults(newSearchResults);
+                        }
+                    }
+                })
+            }
+        }
+        
+        catch(error) {
+            setOriginError('Something went wrong..');
+        }
+    }
+
+    const handleDateSelect = (target, selectedDate) => {
         let tempDate = new Date(selectedDate);
         let tempProperDate = '';
         tempDate.getDate() < 10 ? tempProperDate += `0${tempDate.getDate()}` : tempProperDate += tempDate.getDate();
         tempProperDate += ` ${months[tempDate.getMonth()]}`
         tempProperDate += ` ${tempDate.getFullYear()}`
-        setProperDeparture(tempProperDate);
+
+        switch(target) {
+            case 'departure':
+                setDeparture(selectedDate);
+                setProperDeparture(tempProperDate);
+                break;
+            case 'returnDate':
+                setReturnDate(selectedDate);
+                setProperReturnDate(tempProperDate);
+                break;
+            default:
+                break;
+        }
     }
 
-    const handleReturnDateSelect = (selectedDate) => {
-        let tempDate = new Date(selectedDate);
-        let tempProperDate = '';
-        tempDate.getDate() < 10 ? tempProperDate += `0${tempDate.getDate()}` : tempProperDate += tempDate.getDate();
-        tempProperDate += ` ${months[tempDate.getMonth()]}`
-        tempProperDate += ` ${tempDate.getFullYear()}`
-        setProperReturnDate(tempProperDate);
+    const handleOriginSelect = (airport) => {
+        setOriginSearchResults([]);
+        setOrigin(airport);
+        setOriginText(`${airport.name} (${airport.code}), ${airport.country} - ${airport.city} `);
+    }
+
+    const handleDestinationSelect = (airport) => {
+        setDestinationSearchResults([]);
+        setDestination(airport);
+        setDestinationText(`${airport.name} (${airport.code}), ${airport.country} - ${airport.city} `);
+    }
+
+    const handleSearch = (event) => {
+        event.preventDefault();
+        setOriginError(null);
+        setDestinationError(null);
+        setDepartureError(null);
+        setReturnDateError(null);
+        if(!origin) {
+            setOriginError('Please select a valid origin airport');
+            return;
+        }
+
+        if(!destination) {
+            setDestinationError('Please select a valid destination airport');
+            return;
+        }
+
+        if(!departure) {
+            setDepartureError('Please select a departure date');
+            return;
+        }
+
+        if(!returnDate) {
+            setReturnDateError('Please select a return date');
+        }
+
+        if(origin && destination) {
+            if(originText.trim() !== `${origin.name} (${origin.code}), ${origin.country} - ${origin.city}`) {
+                setOriginError('Please select a valid origin airport');
+                return;
+            }
+
+            else if(destinationText.trim() !== `${destination.name} (${destination.code}), ${destination.country} - ${destination.city}`) {
+                setDestinationError('Please select a valid destination airport');
+                return;
+            }
+
+            else {
+
+            }
+        }
     }
 
     return ( 
         <div className='searchFieldContainer'>
-            <h1 id='slogan'> Find the best flight ticket! </h1>
+            <h1 id='slogan'>Find the best flight ticket! </h1>
             <div className='searchBoxContainer'>
                 <div className='flightType'>
-                    <input type='checkbox' className='' onChange={() => {setIsOneWay(!isOneWay)}}/>   
+                    <input type='checkbox' onChange={handleOneWaySelection} required/>   
                     <label style={{position:'relative', left: '3px', bottom: '1px'}}>One Way</label>
                 </div>
-                <form className='searchForm'>
+                <form className='searchForm' onSubmit={(event) => handleSearch(event)}>
                     <div className='searchFormContent'>
                         <div>
                             <div>
                                 <FontAwesomeIcon style={{color: originError ? '#DC4B64' : 'black'}} icon={faPlaneDeparture}/>
                                 <label style={{color: originError ? '#DC4B64' : 'black'}}>Origin</label>
                             </div>
-                            <input style={{border: originError ? '1px solid #DC4B64' : '.5px solid grey'}} className='w-2x' value={origin} placeholder='Where from?' onChange={(e) => setOrigin(e.target.value)}/>
+                            <input 
+                                style={{border: originError ? '1px solid #DC4B64' : '.5px solid grey'}} 
+                                className='w-2x' 
+                                value={originText}
+                                placeholder='Where from?' 
+                                onChange={(e) => handleOriginChange(e.target.value)} 
+                                required
+                            />
+                            {
+                                originSearchResults.length > 0
+                                &&
+                                <div className='originSearchResults'>
+                                    <ul>
+                                        {originSearchResults.map(airport => {
+                                            return(
+                                                <li key={airport.id} onClick={() => handleOriginSelect(airport)}>
+                                                    {airport.name} ({airport.code}) - {airport.city}, {airport.country}
+                                                </li>
+                                            )
+                                        })}
+                                    </ul>
+                                </div>
+                            }
+
                             <FontAwesomeIcon 
                                 icon={faArrowRightArrowLeft} 
                                 id='swapLocationsIcon' 
@@ -78,21 +240,48 @@ const SearchField = () => {
                                 <FontAwesomeIcon style={{color: destinationError ? '#DC4B64' : 'black'}} icon={faPlaneArrival}/>
                                 <label style={{color: destinationError ? '#DC4B64' : 'black'}}>Destination</label>
                             </div>
-                            <input style={{border: destinationError ? '1px solid #DC4B64' : '.5px solid grey'}} className='w-2x' value={destination} placeholder='Where to?' onChange={(e) => setDestination(e.target.value)}/>
+                            <input 
+                                style={{border: destinationError ? '1px solid #DC4B64' : '.5px solid grey'}} 
+                                className='w-2x' 
+                                value={destinationText} 
+                                placeholder='Where to?' 
+                                onChange={(e) => handleDestinationChange(e.target.value)} 
+                                required
+                            />
+                                                        {
+                                destinationSearchResults.length > 0
+                                &&
+                                <div className='originSearchResults'>
+                                    <ul>
+                                        {destinationSearchResults.map(airport => {
+                                            return(
+                                                <li key={airport.id} onClick={() => handleDestinationSelect(airport)}>
+                                                    {airport.name} ({airport.code}) - {airport.city}, {airport.country}
+                                                </li>
+                                            )
+                                        })}
+                                    </ul>
+                                </div>
+                            }
                         </div>
                         <div>
                             <div>
                                 <FontAwesomeIcon style={{color: departureError ? '#DC4B64' : 'black'}} icon={faCalendar}/>
                                 <label style={{color: departureError ? '#DC4B64' : 'black'}}>Departure</label>
                             </div>
-                            <div style={{border: (departureError && '1px solid #DC4B64' || showDeparturePicker && '1px solid blue'), display:'flex', justifyContent:'center', alignItems:'center' }} className='datePickInput' onClick={() => {setShowReturnDatePicker(false); setShowDeparturePicker(!showDeparturePicker)}}>
+                            <div style={{border: (departureError && '1px solid #DC4B64') || (showDeparturePicker && '1px solid blue'), display:'flex', justifyContent:'center', alignItems:'center' }} className='datePickInput' onClick={() => {setShowReturnDatePicker(false); setShowDeparturePicker(!showDeparturePicker)}}>
                                 {properDeparture}
                             </div>
                             {
                                 showDeparturePicker
                                 &&
                                 <span style={{position:'absolute', paddingTop: 5, paddingBottom: 10}}>
-                                    <Calendar value={properDeparture} onChange={(value) => {handleDepartureSelect(value)}}/>
+                                    <Calendar 
+                                        minDate={new Date()} 
+                                        maxDate={returnDate ? returnDate : null} 
+                                        value={properDeparture} 
+                                        onChange={(value) => {handleDateSelect('departure', value)}}
+                                    />
                                 </span>
                             }
                         </div>
@@ -104,20 +293,44 @@ const SearchField = () => {
                                     <FontAwesomeIcon style={{color: returnDateError ? '#DC4B64' : 'black'}} icon={faCalendarDays}/>
                                     <label style={{color: returnDateError ? '#DC4B64' : 'black'}}>Return</label>
                                 </div>
-                                <div style={{border: (returnDateError && '1px solid #DC4B64' || showReturnDatePicker && '1px solid blue'), display:'flex', justifyContent:'center', alignItems:'center'}} className='datePickInput' onClick={() => {setShowDeparturePicker(false); setShowReturnDatePicker(!showReturnDatePicker)}}>
+                                <div style={{border: ((returnDateError && '1px solid #DC4B64') || (showReturnDatePicker && '1px solid blue')), display:'flex', justifyContent:'center', alignItems:'center'}} className='datePickInput' onClick={() => {setShowDeparturePicker(false); setShowReturnDatePicker(!showReturnDatePicker)}}>
                                     {properReturnDate}
                                 </div>
                                 {
                                     showReturnDatePicker
                                     &&
                                     <span style={{position:'absolute', paddingTop: 5, paddingBottom: 10}}>
-                                        <Calendar value={departure} onChange={(value) => handleReturnDateSelect(value)}/>
+                                        <Calendar 
+                                            minDate={departure ? departure : new Date()} 
+                                            value={properReturnDate} 
+                                            onChange={(value) => handleDateSelect('returnDate', value)}
+                                        />
                                     </span>
                                 }
                             </div>
                         }
                         <button>Search</button>
                     </div>
+                    {
+                        originError
+                        &&
+                        <p className='errorText'>{originError}</p>
+                    }
+                    {
+                        destinationError
+                        &&
+                        <p className='errorText'>{destinationError}</p>
+                    }
+                    {
+                        departureError
+                        &&
+                        <p className='errorText'>{departureError}</p>
+                    }
+                    {
+                        returnDateError
+                        &&
+                        <p className='errorText'>{returnDateError}</p>
+                    }
                 </form>
             </div>
         </div>
