@@ -34,8 +34,14 @@ const SearchField = () => {
 
     useEffect(() => {
         const fetchAirports = async () => {
-            const airportListResponse = await axios.get("https://64fda51f596493f7af7e6785.mockapi.io/api/airports");
-            setAirports(airportListResponse.data);
+            try {
+                const airportListResponse = await axios.get('//localhost:4500/api/getAirportList');
+                console.log(airportListResponse.data.airports);
+                setAirports(airportListResponse.data.airports);
+            }
+            catch (error) {
+                console.log(error);
+            }
         };
 
         fetchAirports()
@@ -126,10 +132,12 @@ const SearchField = () => {
             case 'departure':
                 setDeparture(selectedDate);
                 setProperDeparture(tempProperDate);
+                setShowDeparturePicker(false);
                 break;
             case 'returnDate':
                 setReturnDate(selectedDate);
                 setProperReturnDate(tempProperDate);
+                setShowReturnDatePicker(false);
                 break;
             default:
                 break;
@@ -169,7 +177,7 @@ const SearchField = () => {
             return;
         }
 
-        if(!returnDate) {
+        if(!isOneWay && !returnDate) {
             setReturnDateError('Please select a return date');
         }
 
@@ -316,16 +324,19 @@ const SearchField = () => {
                         &&
                         <p className='errorText'>{originError}</p>
                     }
+
                     {
                         destinationError
                         &&
                         <p className='errorText'>{destinationError}</p>
                     }
+
                     {
                         departureError
                         &&
                         <p className='errorText'>{departureError}</p>
                     }
+
                     {
                         returnDateError
                         &&
