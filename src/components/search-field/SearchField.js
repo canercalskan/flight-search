@@ -32,11 +32,13 @@ const SearchField = () => {
     const [properReturnDate, setProperReturnDate] = useState(null);
     const [returnDateError, setReturnDateError] = useState(null);
 
+    const [searchResults, setSearchResults] = useState(null);
+    const [searchError, setSearchError] = useState(null);
+
     useEffect(() => {
         const fetchAirports = async () => {
             try {
                 const airportListResponse = await axios.get('//localhost:4500/api/getAirportList');
-                console.log(airportListResponse.data.airports);
                 setAirports(airportListResponse.data.airports);
             }
             catch (error) {
@@ -156,7 +158,7 @@ const SearchField = () => {
         setDestinationText(`${airport.name} (${airport.code}), ${airport.country} - ${airport.city} `);
     }
 
-    const handleSearch = (event) => {
+    const handleSearch = async (event) => {
         event.preventDefault();
         setOriginError(null);
         setDestinationError(null);
@@ -193,6 +195,26 @@ const SearchField = () => {
             }
 
             else {
+                let postData = {
+                    origin: origin,
+                    destination: destination,
+                    departure: departure,
+                    returnDate: returnDate ? returnDate : null
+                };
+
+                try {
+                    const searchResults = await axios.post('//localhost:4500/api/searchFlights', postData, {
+                      headers: {
+                        'Content-Type': 'application/json'
+                      }
+                    });
+                    console.log(searchResults.data.availableFlights);
+                    setSearchResults(searchResults.data.availableFlights);
+                }
+
+                catch (error) {
+                    setSearchError(error.message);
+                }
 
             }
         }

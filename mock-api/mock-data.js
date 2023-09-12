@@ -421,4 +421,420 @@ const airports = [
     }
 ]
 
-module.exports = airports
+
+const flights = [
+    {
+        "flight_id": 1,
+        "origin_airport": "İstanbul Havalimanı",
+        "destination_airport": "Ankara Esenboğa Havalimanı",
+        "flight_date": 'Sep 16, 2023',
+        "flight_duration": 2,
+        "departure_time": "08:00",
+        "arrival_time": "10:00",
+        "flight_price": "250.00"
+    },
+
+    {
+        "flight_id": 2,
+        "origin_airport": "İzmir Adnan Menderes Havalimanı",
+        "destination_airport": "Antalya Havalimanı",
+        "flight_date": 'Sep 16, 2023',
+        "flight_duration": 1,
+        "departure_time": "09:30",
+        "arrival_time": "10:30",
+        "flight_price": "120.50"
+    },
+
+    {
+        "flight_id": 3,
+        "origin_airport": "Adana Şakirpaşa Havalimanı",
+        "destination_airport": "Dalaman Havalimanı",
+        "flight_date": 'Sep 17, 2023',
+        "flight_duration": 1,
+        "departure_time": "11:15",
+        "arrival_time": "12:15",
+        "flight_price": "95.75"
+    },
+    {
+        "flight_id": 4,
+        "origin_airport": "Trabzon Havalimanı",
+        "destination_airport": "Bodrum Milas Havalimanı",
+        "flight_date": 'Sep 17, 2023',
+        "flight_duration": 2,
+        "departure_time": "13:45",
+        "arrival_time": "15:45",
+        "flight_price": "200.00"
+    },
+    {
+        "flight_id": 5,
+        "origin_airport": "Gaziantep Oğuzeli Havalimanı",
+        "destination_airport": "Erzurum Havalimanı",
+        "flight_date": 'Sep 17, 2023',
+        "flight_duration": 2,
+        "departure_time": "16:30",
+        "arrival_time": "18:30",
+        "flight_price": "180.25"
+    },
+    {
+        "flight_id": 6,
+        "origin_airport": "Diyarbakır Havalimanı",
+        "destination_airport": "Eskişehir Anadolu Havalimanı",
+        "flight_date": 'Sep 17, 2023',
+        "flight_duration": 1,
+        "departure_time": "19:20",
+        "arrival_time": "20:20",
+        "flight_price": "110.00"
+    },
+    {
+        "flight_id": 7,
+        "origin_airport": "Kayseri Erkilet Havalimanı",
+        "destination_airport": "Nevşehir Kapadokya Havalimanı",
+        "flight_date": 'Sep 17, 2023',
+        "flight_duration": 0.5,
+        "departure_time": "21:00",
+        "arrival_time": "21:30",
+        "flight_price": "75.50"
+    },
+    {
+        "flight_id": 8,
+        "origin_airport": "Samsun Çarşamba Havalimanı",
+        "destination_airport": "Hatay Havalimanı",
+        "flight_date": 'Sep 17, 2023',
+        "flight_duration": 1.5,
+        "departure_time": "22:15",
+        "arrival_time": "23:45",
+        "flight_price": "160.75"
+    },
+    {
+        "flight_id": 9,
+        "origin_airport": "Bursa Yenişehir Havalimanı",
+        "destination_airport": "Konya Havalimanı",
+        "flight_date": 'Sep 17, 2023',
+        "flight_duration": 1.5,
+        "departure_time": "08:30",
+        "arrival_time": "10:00",
+        "flight_price": "140.25"
+    },
+    {
+        "flight_id": 10,
+        "origin_airport": "Gazipaşa-Alanya Havalimanı",
+        "destination_airport": "Malatya Erhaç Havalimanı",
+        "flight_date": 'Sep 17, 2023',
+        "flight_duration": 1.5,
+        "departure_time": "11:30",
+        "arrival_time": "13:00",
+        "flight_price": "135.80"
+    },
+    {
+        "flight_id": 11,
+        "origin_airport": "John F. Kennedy International Airport",
+        "destination_airport": "Los Angeles International Airport",
+        "flight_date": 'Sep 17, 2023',
+        "flight_duration": 10,
+        "departure_time": "14:30",
+        "arrival_time": "00:30",
+        "flight_price": "800.00"
+    },
+    {
+        "flight_id": 12,
+        "origin_airport": "Heathrow Airport",
+        "destination_airport": "Narita International Airport",
+        "flight_date": 'Sep 18, 2023',
+        "flight_duration": 11,
+        "departure_time": "07:45",
+        "arrival_time": "19:45",
+        "flight_price": "850.50"
+    },
+    {
+        "flight_id": 13,
+        "origin_airport": "Sydney Airport",
+        "destination_airport": "Charles de Gaulle Airport",
+        "flight_date": 'Sep 18, 2023',
+        "flight_duration": 21,
+        "departure_time": "10:00",
+        "arrival_time": "07:00",
+        "flight_price": "1250.00"
+    },
+    {
+        "flight_id": 14,
+        "origin_airport": "Dubai International Airport",
+        "destination_airport": "Beijing Capital International Airport",
+        "flight_date": 'Sep 18, 2023',
+        "flight_duration": 8,
+        "departure_time": "15:30",
+        "arrival_time": "23:30",
+        "flight_price": "650.75"
+    },
+    {
+        "flight_id": 15,
+        "origin_airport": "Frankfurt Airport",
+        "destination_airport": "Toronto Pearson International Airport",
+        "flight_date": 'Sep 18, 2023',
+        "flight_duration": 8.5,
+        "departure_time": "09:15",
+        "arrival_time": "17:45",
+        "flight_price": "720.25"
+    },
+    {
+        "flight_id": 16,
+        "origin_airport": "Changi Airport",
+        "destination_airport": "Incheon International Airport",
+        "flight_date": 'Sep 18, 2023',
+        "flight_duration": 5.5,
+        "departure_time": "13:00",
+        "arrival_time": "18:30",
+        "flight_price": "450.00"
+    },
+    {
+        "flight_id": 17,
+        "origin_airport": "Munich Airport",
+        "destination_airport": "Hartsfield-Jackson Atlanta International Airport",
+        "flight_date": 'Sep 18, 2023',
+        "flight_duration": 9,
+        "departure_time": "11:30",
+        "arrival_time": "20:30",
+        "flight_price": "780.50"
+    },
+    {
+        "flight_id": 18,
+        "origin_airport": "Suvarnabhumi Airport",
+        "destination_airport": "Benito Juárez International Airport",
+        "flight_date": 'Sep 18, 2023',
+        "flight_duration": 14,
+        "departure_time": "08:00",
+        "arrival_time": "22:00",
+        "flight_price": "1100.00"
+    },
+    {
+        "flight_id": 19,
+        "origin_airport": "Jomo Kenyatta International Airport",
+        "destination_airport": "O'Hare International Airport",
+        "flight_date": 'Sep 19, 2023',
+        "flight_duration": 15,
+        "departure_time": "12:45",
+        "arrival_time": "03:45",
+        "flight_price": "1150.75"
+    },
+    {
+        "flight_id": 20,
+        "origin_airport": "Indira Gandhi International Airport",
+        "destination_airport": "Kuala Lumpur International Airport",
+        "flight_date": 'Sep 19, 2023',
+        "flight_duration": 5,
+        "departure_time": "09:30",
+        "arrival_time": "14:30",
+        "flight_price": "450.50"
+    },
+    {
+        "flight_id": 21,
+        "origin_airport": "Leonardo da Vinci-Fiumicino Airport",
+        "destination_airport": "Cairo International Airport",
+        "flight_date": 'Sep 19, 2023',
+        "flight_duration": 3.5,
+        "departure_time": "10:15",
+        "arrival_time": "13:45",
+        "flight_price": "280.25"
+    },
+    {
+        "flight_id": 22,
+        "origin_airport": "Shanghai Pudong International Airport",
+        "destination_airport": "Murtala Muhammed International Airport",
+        "flight_date": 'Sep 19, 2023',
+        "flight_duration": 12,
+        "departure_time": "14:00",
+        "arrival_time": "02:00",
+        "flight_price": "970.00"
+    },
+    {
+        "flight_id": 23,
+        "origin_airport": "Seattle-Tacoma International Airport",
+        "destination_airport": "Kansai International Airport",
+        "flight_date": 'Sep 19, 2023',
+        "flight_duration": 10,
+        "departure_time": "17:30",
+        "arrival_time": "03:30",
+        "flight_price": "800.75"
+    },
+    {
+        "flight_id": 24,
+        "origin_airport": "Copenhagen Airport",
+        "destination_airport": "Johannesburg-OR Tambo International Airport",
+        "flight_date": 'Sep 20, 2023',
+        "flight_duration": 11.5,
+        "departure_time": "08:45",
+        "arrival_time": "20:15",
+        "flight_price": "900.25"
+    },
+    {
+        "flight_id": 25,
+        "origin_airport": "Hamad International Airport",
+        "destination_airport": "Adolfo Suárez Madrid-Barajas Airport",
+        "flight_date": 'Sep 20, 2023',
+        "flight_duration": 7,
+        "departure_time": "12:00",
+        "arrival_time": "19:00",
+        "flight_price": "620.00"
+    },
+    {
+        "flight_id": 26,
+        "origin_airport": "Kempegowda International Airport",
+        "destination_airport": "Dublin Airport",
+        "flight_date": 'Sep 20, 2023',
+        "flight_duration": 9,
+        "departure_time": "15:30",
+        "arrival_time": "00:30",
+        "flight_price": "760.50"
+    },
+    {
+        "flight_id": 27,
+        "origin_airport": "Abu Dhabi International Airport",
+        "destination_airport": "Denver International Airport",
+        "flight_date": 'Sep 20, 2023',
+        "flight_duration": 17,
+        "departure_time": "08:15",
+        "arrival_time": "01:15",
+        "flight_price": "1350.00"
+    },
+    {
+        "flight_id": 28,
+        "origin_airport": "Kuala Namu International Airport",
+        "destination_airport": "Dubrovnik Airport",
+        "flight_date": 'Sep 20, 2023',
+        "flight_duration": 15,
+        "departure_time": "12:30",
+        "arrival_time": "03:30",
+        "flight_price": "1250.75"
+    },
+    {
+        "flight_id": 29,
+        "origin_airport": "Cancún International Airport",
+        "destination_airport": "Vienna International Airport",
+        "flight_date": 'Sep 21, 2023',
+        "flight_duration": 11,
+        "departure_time": "16:45",
+        "arrival_time": "03:45",
+        "flight_price": "980.50"
+    },
+    {
+        "flight_id": 30,
+        "origin_airport": "Mactan-Cebu International Airport",
+        "destination_airport": "Dubai World Central - Al Maktoum International Airport",
+        "flight_date": 'Sep 22, 2023',
+        "flight_duration": 5,
+        "departure_time": "08:00",
+        "arrival_time": "13:00",
+        "flight_price": "420.25"
+    },
+
+    {
+        "flight_id": 31,
+        "origin_airport": "Ankara Esenboğa Havalimanı",
+        "destination_airport": "İstanbul Havalimanı",
+        "flight_date": 'Sep 22, 2023',
+        "flight_duration": 5,
+        "departure_time": "15:30",
+        "arrival_time": "20:30",
+        "flight_price": "420.25"
+    },
+
+    {
+        "flight_id": 32,
+        "origin_airport": "Ankara Esenboğa Havalimanı",
+        "destination_airport": "İstanbul Havalimanı",
+        "flight_date": 'Sep 23, 2023',
+        "flight_duration": 5,
+        "departure_time": "15:30",
+        "arrival_time": "20:30",
+        "flight_price": "420.25"
+    },
+
+    {
+        "flight_id": 33,
+        "origin_airport": "Ankara Esenboğa Havalimanı",
+        "destination_airport": "İstanbul Havalimanı",
+        "flight_date": 'Sep 24, 2023',
+        "flight_duration": 5,
+        "departure_time": "15:30",
+        "arrival_time": "20:30",
+        "flight_price": "420.25"
+    },
+
+    {
+        "flight_id": 34,
+        "origin_airport": "Ankara Esenboğa Havalimanı",
+        "destination_airport": "İstanbul Havalimanı",
+        "flight_date": 'Sep 25, 2023',
+        "flight_duration": 5,
+        "departure_time": "15:30",
+        "arrival_time": "20:30",
+        "flight_price": "420.25"
+    },
+
+    {
+        "flight_id": 35,
+        "origin_airport": "Ankara Esenboğa Havalimanı",
+        "destination_airport": "İstanbul Havalimanı",
+        "flight_date": 'Sep 26, 2023',
+        "flight_duration": 5,
+        "departure_time": "15:30",
+        "arrival_time": "20:30",
+        "flight_price": "420.25"
+    },
+
+    {
+        "flight_id": 36,
+        "origin_airport": "Los Angeles International Airport",
+        "destination_airport": "John F. Kennedy International Airport",
+        "flight_date": 'Sep 18, 2023',
+        "flight_duration": 10,
+        "departure_time": "14:30",
+        "arrival_time": "00:30",
+        "flight_price": "800.00"
+    },
+
+    {
+        "flight_id": 37,
+        "origin_airport": "İstanbul Havalimanı",
+        "destination_airport": "Ankara Esenboğa Havalimanı",
+        "flight_date": 'Sep 28, 2023',
+        "flight_duration": 2,
+        "departure_time": "08:00",
+        "arrival_time": "10:00",
+        "flight_price": "250.00"
+    },
+
+    {
+        "flight_id": 38,
+        "origin_airport": "Ankara Esenboğa Havalimanı",
+        "destination_airport": "İstanbul Havalimanı",
+        "flight_date": 'Sep 29, 2023',
+        "flight_duration": 2,
+        "departure_time": "08:00",
+        "arrival_time": "10:00",
+        "flight_price": "250.00"
+    },
+
+    {
+        "flight_id": 39,
+        "origin_airport": "İstanbul Havalimanı",
+        "destination_airport": "Ankara Esenboğa Havalimanı",
+        "flight_date": 'Sep 28, 2023',
+        "flight_duration": 3,
+        "departure_time": "17:45",
+        "arrival_time": "19:45",
+        "flight_price": "439.99"
+    },
+
+    {
+        "flight_id": 40,
+        "origin_airport": "Ankara Esenboğa Havalimanı",
+        "destination_airport": "İstanbul Havalimanı",
+        "flight_date": 'Sep 28, 2023',
+        "flight_duration": 2,
+        "departure_time": "21:50",
+        "arrival_time": "23:50",
+        "flight_price": "199.99"
+    },
+]
+
+module.exports = {airports, flights}
