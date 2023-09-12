@@ -1,0 +1,15 @@
+.flightItem {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    background-color: rgb(238, 238, 238);
+    margin: 10px;
+}
+
+.notFound {
+    background-color: red;
+    color: white;
+    padding: 3px 6px;
+    width: fit-content;
+    border-radius: 10px;
+}

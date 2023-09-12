@@ -18,27 +18,23 @@ app.get(`${rootUrl}/getAirportList`, (req, res) => {
 
 app.post(`${rootUrl}/searchFlights` , async (req, res) => {
     if(req.body.returnDate) {
-        let availableFlights = flights.filter(flight => 
+        let availableFlights = flights.filter(flight => (
             (
-                (
-                    flight.origin_airport === req.body.origin.name
-                    && 
-                    flight.destination_airport === req.body.destination.name
-                )
-                ||
-                (
-                    flight.destination_airport === req.body.origin.name
-                    &&
-                    flight.origin_airport === req.body.destination.name
-                )
-            )
-            &&
-            (
+                flight.origin_airport === req.body.origin.name
+                && 
+                flight.destination_airport === req.body.destination.name
+                &&
                 new Date(flight.flight_date).toDateString() === new Date(req.body.departure).toDateString()
-                || 
+            )
+            ||
+            (
+                flight.destination_airport === req.body.origin.name
+                &&
+                flight.origin_airport === req.body.destination.name
+                &&
                 new Date(flight.flight_date).toDateString() === new Date(req.body.returnDate).toDateString()
             )
-        );
+        ));
         res.json({ availableFlights })
     }
 

@@ -4,9 +4,11 @@ import { faPlaneDeparture, faPlaneArrival, faArrowRightArrowLeft } from '@fortaw
 import { faCalendar, faCalendarDays } from '@fortawesome/free-regular-svg-icons';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
+import Loader from '../loader/Loader';
 import { months } from '../../constants/constants';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import SearchResults from '../search-results/SearchResults';
 
 const SearchField = () => {
     const [isOneWay, setIsOneWay] = useState(false);
@@ -32,6 +34,7 @@ const SearchField = () => {
     const [properReturnDate, setProperReturnDate] = useState(null);
     const [returnDateError, setReturnDateError] = useState(null);
 
+    const [showLoading, setShowLoading] = useState(false);
     const [searchResults, setSearchResults] = useState(null);
     const [searchError, setSearchError] = useState(null);
 
@@ -181,6 +184,7 @@ const SearchField = () => {
 
         if(!isOneWay && !returnDate) {
             setReturnDateError('Please select a return date');
+            return;
         }
 
         if(origin && destination) {
@@ -195,6 +199,7 @@ const SearchField = () => {
             }
 
             else {
+                setShowLoading(true);
                 let postData = {
                     origin: origin,
                     destination: destination,
@@ -208,20 +213,27 @@ const SearchField = () => {
                         'Content-Type': 'application/json'
                       }
                     });
-                    console.log(searchResults.data.availableFlights);
                     setSearchResults(searchResults.data.availableFlights);
+                    setTimeout(() => {
+                        setShowLoading(false);
+                    }, 3000)
                 }
 
                 catch (error) {
                     setSearchError(error.message);
                 }
-
             }
         }
     }
 
-    return ( 
+    return (
+        <>
         <div className='searchFieldContainer'>
+            {
+                showLoading
+                &&
+                <Loader/>
+            }
             <h1 id='slogan'>Find the best flight ticket! </h1>
             <div className='searchBoxContainer'>
                 <div className='flightType'>
@@ -367,6 +379,16 @@ const SearchField = () => {
                 </form>
             </div>
         </div>
+
+        {
+            searchResults
+            &&
+            !showLoading
+            &&
+            <SearchResults results = { searchResults }/>
+        }
+        
+        </> 
      );
 }
  
