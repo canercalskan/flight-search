@@ -385,7 +385,18 @@ const SearchField = () => {
             &&
             !showLoading
             &&
-            <SearchResults results = { searchResults }/>
+            <SearchResults 
+                originAirport = { origin.name }
+                destinationAirport = { destination.name }
+                originCode = { origin.code }
+                returnCode = { destination.code }
+                destinationCode = { destination.code}
+                departureCity = { origin.city } 
+                returnCity = { returnDate ? destination.city : null} 
+                departure = { departure } 
+                returnDate = { returnDate } 
+                results = { searchResults }
+            />
         }
         
         </> 
