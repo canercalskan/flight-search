@@ -1,8 +1,9 @@
-<p>After cloning the repo, go to the project's root directory and run <i style="color:red">npm install</i> to install all the dependencies</p>
+<p>After cloning the repo, go to the project's root directory and run <i>npm install</i> to install all the dependencies</p>
 <p>After installation, navigate to the <b>mock-api</b> folder with <i>cd mock-api</i> and start the server with <i>node mock-api.js</i> .</p>
 <p>If you see the informative log <b>Mock Server is running on port 4500</b>, open up a new terminal and run <i>npm start</i>.</p>
 <p>Finally, you can access the application in <u>http://localhost:3000/</u></p>
-<h1 style="text-align=center">Application Screenshots</h1>
+<b>FYI: Choose September 28 for both departure and return date to properly check each feature described in the case details.</b>
+<h1>Application Screenshots</h1>
 
 <img width="1440" alt="1" src="https://github.com/canercalskan/flight-search/assets/84105094/cf809f4a-f3f9-43e2-b702-389aade7c828">
 <hr>
