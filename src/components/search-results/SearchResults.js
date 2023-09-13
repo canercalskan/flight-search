@@ -100,7 +100,7 @@ const SearchResults = (props) => {
                 {
                     !departureTicketSelected || !returnTicketSelected
                     ?
-                    <select onChange={(e) => !departureTicketSelected ? handleDepartureSort(e) : handleReturnSort()}>
+                    <select onChange={(e) => !departureTicketSelected ? handleDepartureSort(e) : handleReturnSort(e)}>
                         <option>Sort By..</option>
                         <option>Duration</option>
                         <option>Price</option>

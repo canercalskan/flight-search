@@ -835,6 +835,28 @@ const flights = [
         "arrival_time": "23:50",
         "flight_price": "199.99"
     },
+
+    {
+        "flight_id": 41,
+        "origin_airport": "İstanbul Havalimanı",
+        "destination_airport": "Ankara Esenboğa Havalimanı",
+        "flight_date": 'Sep 28, 2023',
+        "flight_duration": 4,
+        "departure_time": "12:15",
+        "arrival_time": "16:15",
+        "flight_price": "117.00"
+    },
+
+    {
+        "flight_id": 42,
+        "origin_airport": "Ankara Esenboğa Havalimanı",
+        "destination_airport": "İstanbul Havalimanı",
+        "flight_date": 'Sep 28, 2023',
+        "flight_duration": 3,
+        "departure_time": "09:15",
+        "arrival_time": "10:15",
+        "flight_price": "99.99"
+    }
 ]
 
 module.exports = {airports, flights}

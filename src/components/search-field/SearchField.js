@@ -274,7 +274,7 @@ const SearchField = () => {
                             <FontAwesomeIcon 
                                 icon={faArrowRightArrowLeft} 
                                 id='swapLocationsIcon' 
-                                style={{marginLeft: !isOneWay ? '1rem' : '4rem'}} 
+                                style={{marginLeft: '1rem'}} 
                                 onClick={swapLocations}/>
                         </div>
                         <div>
