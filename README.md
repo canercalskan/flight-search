@@ -2,12 +2,18 @@
 <p>After installation, navigate to the <b>mock-api</b> folder with <i>cd mock-api</i> and start the server with <i>node mock-api.js</i> .</p>
 <p>If you see the informative log <b>Mock Server is running on port 4500</b>, open up a new terminal and run <i>npm start</i>.</p>
 <p>Finally, you can access the application in <u>http://localhost:3000/</u></p>
-<h1 style="text-align:center">Application Screenshots</h1>
+<h1 style="text-align=center">Application Screenshots</h1>
 
-<img width="1440" alt="Ekran Resmi 2023-09-13 18 57 12" src="https://github.com/canercalskan/flight-search/assets/84105094/b5c18f92-d980-4a1b-bf0c-60a5b0c221f6">
-<img width="1440" alt="Ekran Resmi 2023-09-13 18 57 40" src="https://github.com/canercalskan/flight-search/assets/84105094/41f90f7b-a6b4-4957-a027-28f8ffa7befd">
-<img width="1438" alt="Ekran Resmi 2023-09-13 18 58 02" <img width="1438" alt="Ekran Resmi 2023-09-13 18 58 41" src="https://github.com/canercalskan/flight-search/assets/84105094/c395b4c0-fbe7-4bf0-8a7f-af2812fd596f">
-src="https://github.com/canercalskan/flight-search/assets/84105094/d6cf35a7-fb1b-45d8-827f-18b9c6009669">
-<img width="1440" alt="Ekran Resmi 2023-09-13 18 58 22" src="https://github.com/canercalskan/flight-search/assets/84105094/40cdd0d4-96c4-4dde-87f8-48199c3d5430">
-<img width="1439" alt="Ekran Resmi 2023-09-13 18 59 09" src="https://github.com/canercalskan/flight-search/assets/84105094/b0a3529e-82fb-4032-9c4e-5ee3e85ca3db">
-<img width="1437" alt="Ekran Resmi 2023-09-13 18 59 37" src="https://github.com/canercalskan/flight-search/assets/84105094/831cb81c-8f1b-479b-bc50-bdf73424276f">
+<img width="1440" alt="1" src="https://github.com/canercalskan/flight-search/assets/84105094/cf809f4a-f3f9-43e2-b702-389aade7c828">
+<hr>
+<img width="1440" alt="2" src="https://github.com/canercalskan/flight-search/assets/84105094/dc0d8b97-a721-40a4-ad1d-502f6eff75aa">
+<hr>
+<img width="1438" alt="3" src="https://github.com/canercalskan/flight-search/assets/84105094/e1cdf802-dc84-45ba-a64f-0404600e9a56">
+<hr>
+<img width="1440" alt="4" src="https://github.com/canercalskan/flight-search/assets/84105094/df8ebcb1-4405-4794-bcc2-5c96ea8047e8">
+<hr>
+<img width="1438" alt="5" src="https://github.com/canercalskan/flight-search/assets/84105094/5059ea0d-886d-46b9-9b72-541806478eb1">
+<hr>
+<img width="1439" alt="6" src="https://github.com/canercalskan/flight-search/assets/84105094/065d2175-a4c4-4700-81c9-35cf57608f29">
+<hr>
+<img width="1437" alt="7" src="https://github.com/canercalskan/flight-search/assets/84105094/3252cee3-a9d3-4792-bb0c-b0e7b814a990">
